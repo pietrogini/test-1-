@@ -1,0 +1,28 @@
+name: Scrape libri
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python3 scrape_libri.py
+
+      - name: Upload libri.csv artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libri-csv
+          path: libri.csv
