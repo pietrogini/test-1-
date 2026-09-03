@@ -12,6 +12,7 @@ RATING_WORDS = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
 def scrape_libri(url: str, limit: int = 20) -> list[dict]:
     response = requests.get(url, timeout=10)
     response.raise_for_status()
+    response.encoding = response.apparent_encoding
     soup = BeautifulSoup(response.text, "html.parser")
 
     libri = []
